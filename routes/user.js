@@ -2,7 +2,6 @@ const router = require('express').Router()
 const User = require('../models/User')
 const {verifyTokenAndAuthorization, verifyTokenAndAdmin} = require('./verifyToken')
 
-
 // UPDATA USER
 router.put('/:id', verifyTokenAndAuthorization, async(req, res) => {
   if(req.body.password){

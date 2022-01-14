@@ -4,6 +4,7 @@ const dotenv = require('dotenv')
 const morgan = require('morgan')
 const userRoute = require('./routes/user')
 const authRoute = require('./routes/auth')
+const productRoute = require('./routes/product')
 
 // app config
 const app = express()
@@ -21,6 +22,7 @@ app.use(express.json())
 app.use(morgan('common'))
 app.use('/api/users', userRoute)
 app.use('/api/auth', authRoute)
+app.use('/api/products', productRoute)
 
 // listener
 app.listen(port, () => {
