@@ -5,6 +5,7 @@ const morgan = require('morgan')
 const userRoute = require('./routes/user')
 const authRoute = require('./routes/auth')
 const productRoute = require('./routes/product')
+const cartRoute = require('./routes/cart')
 
 // app config
 const app = express()
@@ -23,8 +24,10 @@ app.use(morgan('common'))
 app.use('/api/users', userRoute)
 app.use('/api/auth', authRoute)
 app.use('/api/products', productRoute)
+app.use('/api/cart', cartRoute)
 
 // listener
 app.listen(port, () => {
   console.log('Backend server is running')
 })
+

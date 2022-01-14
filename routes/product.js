@@ -35,7 +35,7 @@ router.delete('/:id', verifyTokenAndAdmin, async (req, res) => {
   }
 })
 
-// GET USER
+// GET CART
 router.get('/find/:id', async (req, res) => {
   try{
     const product = await Product.findById(req.params.id)
