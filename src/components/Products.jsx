@@ -1,4 +1,4 @@
-import axios from "../axios";
+import {publicRequest} from "../requestMethods";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 
@@ -19,7 +19,7 @@ const Products = ({cat, filters, sort}) => {
   useEffect(() => {
     const getProducts = async() => {
       try{
-        const res = await axios.get(cat 
+        const res = await publicRequest.get(cat 
           ? `products?category=${cat}`
           : 'products')
         setProducts(res.data)
