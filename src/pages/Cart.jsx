@@ -1,5 +1,5 @@
 import { Add, Remove } from "@material-ui/icons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
@@ -9,6 +9,7 @@ import StripeCheckout from 'react-stripe-checkout'
 import { useEffect, useState } from "react";
 import { userRequest } from "../requestMethods";
 import { useHistory } from "react-router-dom";
+import { resetCart } from "../redux/cartRedux";
 
 const KEY = process.env.REACT_APP_STRIPE
 
@@ -16,6 +17,7 @@ const Cart = () => {
   const cart = useSelector(state=> state.cart)
   const [stripeToken, setStripeToken] = useState(null)
   const history = useHistory()
+  const dispatch = useDispatch()
 
   const onToken = (token) => {
     setStripeToken(token)
@@ -29,6 +31,7 @@ const Cart = () => {
           amount: cart.total * 100
         })
         history.push('/success', {data:res.data})
+        dispatch(resetCart())
       }catch(err){
         alert(err)
       }
