@@ -1,15 +1,7 @@
 import {publicRequest} from "../requestMethods";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-
 import Product from "./Product";
-
-const Container = styled.div`
-    padding: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-`;
 
 const Products = ({cat, filters, sort}) => {
 
@@ -48,5 +40,12 @@ const Products = ({cat, filters, sort}) => {
     </Container>
   );
 };
+
+const Container = styled.div`
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+`;
 
 export default Products;
