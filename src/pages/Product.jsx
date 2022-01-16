@@ -34,6 +34,11 @@ const Product = () => {
     dispatch(addProduct({...product, quantity, color, size}))
   }
 
+  // scroll page to the top
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   // fetching a products data when the id changes
   useEffect(() => {
     const getProduct = async () => { 
