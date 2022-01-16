@@ -10,6 +10,7 @@ import {
   Route, 
   Redirect
 } from 'react-router-dom'
+import Success from "./pages/Success";
 
 const App = () => {
 
@@ -29,6 +30,9 @@ const App = () => {
         </Route>
         <Route path='/cart'>
           <Cart />
+        </Route>
+        <Route path='/success'>
+          <Success />
         </Route>
         <Route path='/login'>
           {user ? <Redirect to='/' /> : <Login />}
