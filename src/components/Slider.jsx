@@ -40,8 +40,8 @@ const Wrapper = styled.div`
 `;
 
 const Slide = styled.div`
-  width: 100vw;
   height: 100vh;
+  width: 100vw;
   display: flex;
   align-items: center;
   background-color: #${(props) => props.bg};
@@ -91,9 +91,9 @@ const Slider = () => {
 
   return (
     <Container>
-      <Arrow direction="left" onClick={() => handleClick("left")}>
+      {/* <Arrow direction="left" onClick={() => handleClick("left")}>
         <ArrowLeftOutlined />
-      </Arrow>
+      </Arrow> */}
       <Wrapper slideIndex={slideIndex}>
         {sliderItems.map((item) => (
           <Slide bg={item.bg} key={item.id}>
@@ -108,9 +108,9 @@ const Slider = () => {
           </Slide>
         ))}
       </Wrapper>
-      <Arrow direction="right" onClick={() => handleClick("right")}>
+      {/* <Arrow direction="right" onClick={() => handleClick("right")}>
         <ArrowRightOutlined />
-      </Arrow>
+      </Arrow> */}
     </Container>
   );
 };
