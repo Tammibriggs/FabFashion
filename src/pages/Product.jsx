@@ -128,7 +128,7 @@ const Product = () => {
 
   // function to change the quantity
   const handleQuantity = (type) => {
-    if(type == 'dec'){
+    if(type === 'dec'){
       quantity > 1 && setQuantity(quantity - 1)
     }else{
       setQuantity(quantity + 1)
@@ -137,7 +137,7 @@ const Product = () => {
 
   // update cart
   const handleClick = () => {
-    
+
   }
 
   // fetching a products data when the id changes

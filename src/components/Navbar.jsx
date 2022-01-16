@@ -26,7 +26,7 @@ const Left = styled.div`
 const Language = styled.span`
   font-size: 14px;
   cursor: pointer;
-  ${mobile({ display: "none" })}
+  ${mobile({ display: "none" })} 
 `;
 
 const SearchContainer = styled.div`
@@ -67,6 +67,7 @@ const MenuItem = styled.div`
 `;
 
 const Navbar = () => {
+  
   return (
     <Container>
       <Wrapper>
