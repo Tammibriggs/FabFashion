@@ -7,37 +7,67 @@ import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
 import StripeCheckout from 'react-stripe-checkout'
 import { useEffect, useState } from "react";
-import { userRequest } from "../requestMethods";
+import { publicRequest } from "../requestMethods";
 import { useHistory } from "react-router-dom";
 import { resetCart } from "../redux/cartRedux";
+import { useLocation } from "react-router";
 
 const KEY = process.env.REACT_APP_STRIPE
 
 const Cart = () => {
   const cart = useSelector(state=> state.cart)
+  const user = useSelector(state => state.user)
+  const token = user.currentUser?.accessToken
   const [stripeToken, setStripeToken] = useState(null)
   const history = useHistory()
+  const location = useLocation().pathname
   const dispatch = useDispatch()
 
   const onToken = (token) => {
     setStripeToken(token)
   }
- 
+
+  useEffect(() => {
+    if(!user.currentUser){
+      history.push({
+        pathname: '/login',
+        state: {
+          next: location
+        }
+      })
+    }
+  })
+    
   useEffect(() => {
     const makeRequest = async () => {
       try{
-        const res = await userRequest.post('checkout/payment', {
+        const res = await publicRequest.post('checkout/payment', {
           tokenId: stripeToken.id,
           amount: cart.total * 100
-        })
+        },
+        {
+          headers: {token:`Bearer ${token}`}
+        }
+        )
         history.push('/success', {data:res.data})
         dispatch(resetCart())
       }catch(err){
         alert(err)
       }
     }
-    stripeToken && cart.total >= 1 && makeRequest()
-  }, [stripeToken, cart.total, history])
+    if(stripeToken && cart.total >= 1){
+      makeRequest() 
+    }else if (user.currentUser && !cart.total >= 1) {
+      alert('Cart is empty')
+    }
+  }, [stripeToken,
+      cart.total,
+      history, 
+      token, 
+      dispatch, 
+      user.currentUser
+    ]
+  )
 
   return (
     <Container>
@@ -51,7 +81,7 @@ const Cart = () => {
             <TopText>Shopping Bag(2)</TopText>
             <TopText>Your Wishlist (0)</TopText>
           </TopTexts>
-          <TopButton type="filled">CHECKOUT NOW</TopButton>
+            <TopButton type="filled">CHECKOUT NOW</TopButton> 
         </Top>
         <Bottom>
           <Info>

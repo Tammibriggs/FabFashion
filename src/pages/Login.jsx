@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory, useLocation } from "react-router";
 import styled from "styled-components";
 import { login } from "../redux/apiCalls";
 import {mobile} from "../responsive";
@@ -9,11 +10,16 @@ const Login = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const dispatch = useDispatch()
+  const location = useLocation()
+  const history = useHistory()
   const {isFetching, error} = useSelector(state => state.user)
 
   const handleLogin = async(e) => {
     e.preventDefault()
     await login(dispatch, {username, password})
+    if(location.state){
+      history.push(location.state.next)
+    }
   }
 
   return (

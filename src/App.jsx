@@ -21,7 +21,7 @@ const App = () => {
     <Router>
       <Switch>
         <Route exact path='/'>
-          {user ? <Home /> : <Redirect to='/login'/> }
+          <Home />
         </Route>
         <Route path='/products/:category'>
           <ProductList />
