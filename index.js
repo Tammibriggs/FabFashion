@@ -37,6 +37,8 @@ app.use('/api/cart', cartRoute)
 app.use('/api/orders', orderRoute) 
 app.use('/api/checkout', stripeRoute) 
 
+app.get('/', (req,res) => res.status(200).json('Welcome to my api'))
+
 // listener
 app.listen(port, () => {
   console.log('Backend server is running')
