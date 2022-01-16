@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const Product = require('../models/Product')
-const { verifyTokenAndAdmin} = require('./verifyToken')
+const { verifyTokenAndAdmin } = require('./verifyToken')
 
 // CREATE
 router.post('/',verifyTokenAndAdmin, async(req, res) => {
@@ -35,7 +35,7 @@ router.delete('/:id', verifyTokenAndAdmin, async (req, res) => {
   }
 })
 
-// GET CART
+// GET PRODUCT
 router.get('/find/:id', async (req, res) => {
   try{
     const product = await Product.findById(req.params.id)
@@ -44,7 +44,6 @@ router.get('/find/:id', async (req, res) => {
     res.status(500).json(err) 
   }
 })
-
 
 // GET ALL PRODUCTS
 router.get('/', async (req, res) => {

@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
+const Cors = require('cors')
 const morgan = require('morgan')
 const userRoute = require('./routes/user')
 const authRoute = require('./routes/auth')
@@ -20,15 +21,21 @@ mongoose.connect(process.env.MONGO_URL)
   console.log(err)
 })
 
+const corsOption = {
+  origin: process.env.ALLOWED_HOST,
+  optionsSuccessStatus: 200
+}
+
 // middleware
+app.use(Cors(corsOption))
 app.use(express.json())
 app.use(morgan('common'))
 app.use('/api/users', userRoute)
 app.use('/api/auth', authRoute)
 app.use('/api/products', productRoute)
 app.use('/api/cart', cartRoute)
-app.use('/api/orders', orderRoute)
-app.use('/api/checkout', stripeRoute)
+app.use('/api/orders', orderRoute) 
+app.use('/api/checkout', stripeRoute) 
 
 // listener
 app.listen(port, () => {
