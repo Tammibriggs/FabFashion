@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const quantity = useSelector(state => state.cart.quantity)
+  const user = useSelector(state => state.user)
   
   return (
     <Container>
@@ -20,11 +21,22 @@ const Navbar = () => {
           </SearchContainer>
         </Left>
         <Center>
-          <Logo>.FabFashion.</Logo>
+          <Link to='/' style={{textDecoration: 'none', color: 'inherit'}}>
+            <Logo>.FabFashion.</Logo>
+          </Link>
         </Center>
         <Right>
-          <MenuItem>REGISTER</MenuItem>
-          <MenuItem>SIGN IN</MenuItem>
+          {user.currentUser 
+          ? user.currentUser.username
+          :<>
+          <Link to='/register'>
+            <MenuItem>REGISTER</MenuItem>
+          </Link>
+          <Link to='/login'>
+            <MenuItem>SIGN IN</MenuItem>
+          </Link>
+          </>
+          }
           <Link to='/cart'>
             <MenuItem>
               <Badge badgeContent={quantity} color="primary">

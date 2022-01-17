@@ -1,23 +1,66 @@
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { mobile } from "../responsive";
+import { register } from "../redux/apiCalls";
+import { useState } from "react";
+import { useHistory } from "react-router";
 
 const Register = () => {
+  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const dispatch = useDispatch()
+  const {isFetching, error} = useSelector(state => state.user)
+  const history = useHistory()
+
+  const handleRegister = async( e) => {
+    e.preventDefault()
+    if(password === confirmPassword){
+      await register(dispatch, {username, email, password})
+      history.push('/login')
+    }else{
+      alert('passwords dont match!')
+    }
+  }
+
   return (
     <Container>
       <Wrapper>
         <Title>CREATE AN ACCOUNT</Title>
-        <Form>
-          <Input placeholder="name" />
-          <Input placeholder="last name" />
-          <Input placeholder="username" />
-          <Input placeholder="email" />
-          <Input placeholder="password" />
-          <Input placeholder="confirm password" />
+        <Form onSubmit={handleRegister}>
+          {/* <Input placeholder="name" />
+          <Input placeholder="last name" /> */}
+          <Input 
+            placeholder="username" 
+            type='name' 
+            value={username} 
+            required
+            onChange={(e) => setUsername(e.target.value)}/>
+          <Input 
+            placeholder="email" 
+            type='email' 
+            value={email}
+            required 
+            onChange={(e) => setEmail(e.target.value)}/>
+          <Input 
+            placeholder="password" 
+            type='password'
+            value={password}
+            required
+            onChange={(e) => setPassword(e.target.value)}/>
+          <Input 
+            placeholder="confirm password" 
+            type='password'
+            value={confirmPassword}
+            required
+            onChange={(e) => setConfirmPassword(e.target.value)}/>
           <Agreement>
             By creating an account, I consent to the processing of my personal
             data in accordance with the <b>PRIVACY POLICY</b>
           </Agreement>
-          <Button>CREATE</Button>
+          <Button type='submit' disabled={isFetching}>CREATE</Button>
+          {error && <Error>Something went wrong</Error>}
         </Form>
       </Wrapper>
     </Container>
@@ -76,5 +119,9 @@ const Button = styled.button`
   color: white;
   cursor: pointer;
 `;
+
+const Error = styled.span`
+  color: red;
+`
 
 export default Register;

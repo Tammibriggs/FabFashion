@@ -22,6 +22,12 @@ const ProductList = () => {
     })
   }
 
+  // scroll page to the top
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
+
   return (
     <Container>
       <Navbar />
