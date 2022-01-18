@@ -27,7 +27,7 @@ import './featuredInfo.css'
        </div>
 
        <div className="featuredItem">
-         <span className="featuredTitle">Cose</span>
+         <span className="featuredTitle">Cost</span>
           <div className="featuredMoneyContainer">
             <span className="featuredMoney">$2,425</span>
             <span className="featuredMoneyRate">
