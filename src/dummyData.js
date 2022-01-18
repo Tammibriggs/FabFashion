@@ -48,3 +48,54 @@ export const userData = [
     'Active User': 3590,
   },
 ];
+
+export const userRows = [
+  { 
+    id: 1, 
+    username: 'John Snow', 
+    avatar: 'https://tammibriggs-portfolio.netlify.app/static/media/my_picture.d93a4389.jpg',
+    email: 'john@gmail.com',
+    status: 'active',
+    transaction: '$120.00'
+  },
+  { 
+    id: 2, 
+    username: 'John Snow', 
+    avatar: 'https://tammibriggs-portfolio.netlify.app/static/media/my_picture.d93a4389.jpg',
+    email: 'john@gmail.com',
+    status: 'active',
+    transaction: '$120.00'
+  },
+  { 
+    id: 3, 
+    username: 'John Snow', 
+    avatar: 'https://tammibriggs-portfolio.netlify.app/static/media/my_picture.d93a4389.jpg',
+    email: 'john@gmail.com',
+    status: 'active',
+    transaction: '$120.00'
+  },
+  { 
+    id: 4, 
+    username: 'John Snow', 
+    avatar: 'https://tammibriggs-portfolio.netlify.app/static/media/my_picture.d93a4389.jpg',
+    email: 'john@gmail.com',
+    status: 'active',
+    transaction: '$120.00'
+  },
+  { 
+    id: 5, 
+    username: 'John Snow', 
+    avatar: 'https://tammibriggs-portfolio.netlify.app/static/media/my_picture.d93a4389.jpg',
+    email: 'john@gmail.com',
+    status: 'active',
+    transaction: '$120.00'
+  },
+  { 
+    id: 6, 
+    username: 'John Snow', 
+    avatar: 'https://tammibriggs-portfolio.netlify.app/static/media/my_picture.d93a4389.jpg',
+    email: 'john@gmail.com',
+    status: 'active',
+    transaction: '$120.00'
+  },
+];
