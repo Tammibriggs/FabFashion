@@ -24,8 +24,6 @@ export default function WidgetLg() {
     getOrders()
   }, [])
 
-  console.log('This is the orders', orders)
-
   // Button component
   const Button = ({ type }) => {
     return <button className={"widgetLgButton " + type}>{type}</button>;
@@ -42,7 +40,7 @@ export default function WidgetLg() {
           <th className="widgetLgTh">Status</th>
         </tr>
         {orders.map((order) => (
-          <tr className="widgetLgTr">
+          <tr className="widgetLgTr" key={order._id}>
             <td className="widgetLgUser">
               <span className="widgetLgName">{order.username}</span>
             </td>
