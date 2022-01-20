@@ -22,7 +22,7 @@ mongoose.connect(process.env.MONGO_URL)
 })
 
 const corsOption = {
-  origin: process.env.ALLOWED_HOST,
+  origin: process.env.ALLOWED_HOST.slice(1, -1).split(' '),
   optionsSuccessStatus: 200
 }
 
