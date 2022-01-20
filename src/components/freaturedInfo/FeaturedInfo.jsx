@@ -1,4 +1,4 @@
- import { ArrowDownward, ArrowUpward } from '@mui/icons-material'
+ import { ArrowDownward, ArrowUpward, Unsubscribe } from '@mui/icons-material'
 import { useEffect, useState } from 'react'
 import { userRequest } from '../../requestMethods'
 import './featuredInfo.css'
@@ -24,7 +24,7 @@ import './featuredInfo.css'
         <div className="featuredItem">
           <span className="featuredTitle">Revenue</span>
             <div className="featuredMoneyContainer">
-              <span className="featuredMoney">${income[1] && income[1].total}</span>
+              <span className="featuredMoney">${income[1]?.total}</span>
               <span className="featuredMoneyRate">
                 %{Math.floor(percentage)} 
                   {percentage < 0 ? (
