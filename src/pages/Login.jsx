@@ -1,35 +1,45 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useLocation } from "react-router";
+import { useLocation } from "react-router";
 import styled from "styled-components";
 import { login } from "../redux/apiCalls";
-import {mobile} from "../responsive";
+import { mobile } from "../responsive";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const dispatch = useDispatch()
-  const location = useLocation()
-  const history = useHistory()
-  const {isFetching, error} = useSelector(state => state.user)
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { isFetching, error } = useSelector((state) => state.user);
 
-  const handleLogin = async(e) => {
-    e.preventDefault()
-    await login(dispatch, {username, password})
-    if(location.state){
-      history.push(location.state.next)
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    await login(dispatch, { username, password });
+    if (location.state) {
+      navigate(location.state.next);
     }
-  }
+  };
 
   return (
     <Container>
       <Wrapper>
         <Title>SIGN IN</Title>
         <Form>
-          <Input placeholder="username" type='name' onChange={(e) => setUsername(e.target.value)}/>
-          <Input placeholder="password" type='password' onChange={(e) => setPassword(e.target.value)}/>
-          <Button onClick={handleLogin} disabled={isFetching}>LOGIN</Button>
+          <Input
+            placeholder="username"
+            type="name"
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <Input
+            placeholder="password"
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Button onClick={handleLogin} disabled={isFetching}>
+            LOGIN
+          </Button>
           {error && <Error>Something went wrong</Error>}
           <Link>DO NOT YOU REMEMBER THE PASSWORD?</Link>
           <Link>CREATE A NEW ACCOUNT</Link>
@@ -102,6 +112,6 @@ const Link = styled.a`
 
 const Error = styled.span`
   color: red;
-`
+`;
 
 export default Login;

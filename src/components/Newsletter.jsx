@@ -1,4 +1,4 @@
-import { Send } from "@material-ui/icons";
+import { Send } from "@mui/icons-material";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 
@@ -35,7 +35,6 @@ const Desc = styled.div`
   font-weight: 300;
   margin-bottom: 20px;
   ${mobile({ textAlign: "center" })}
-
 `;
 
 const InputContainer = styled.div`

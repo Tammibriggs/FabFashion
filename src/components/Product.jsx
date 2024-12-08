@@ -2,12 +2,11 @@ import {
   FavoriteBorderOutlined,
   SearchOutlined,
   ShoppingCartOutlined,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import {Link} from 'react-router-dom'
 
 const Product = ({ item }) => {
-
   return (
     <Container>
       <Circle />
@@ -56,7 +55,7 @@ const Container = styled.div`
   background-color: #f5fbfd;
   position: relative;
 
-  &:hover ${Info}{
+  &:hover ${Info} {
     opacity: 1;
   }
 `;

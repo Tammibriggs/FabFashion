@@ -1,15 +1,13 @@
-import { Badge } from "@material-ui/core";
-import { Search, ShoppingCartOutlined } from "@material-ui/icons";
-import React from "react";
+import { Badge, Search, ShoppingCartOutlined } from "@mui/icons-material";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
-  const quantity = useSelector(state => state.cart.quantity)
-  const user = useSelector(state => state.user)
-  
+  const quantity = useSelector((state) => state.cart.quantity);
+  const user = useSelector((state) => state.user);
+
   return (
     <Container>
       <Wrapper>
@@ -21,23 +19,24 @@ const Navbar = () => {
           </SearchContainer>
         </Left>
         <Center>
-          <Link to='/' style={{textDecoration: 'none', color: 'inherit'}}>
+          <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
             <Logo>.FabFashion.</Logo>
           </Link>
         </Center>
         <Right>
-          {user.currentUser 
-          ? user.currentUser.username
-          :<>
-          <Link to='/register'>
-            <MenuItem>REGISTER</MenuItem>
-          </Link>
-          <Link to='/login'>
-            <MenuItem>SIGN IN</MenuItem>
-          </Link>
-          </>
-          }
-          <Link to='/cart'>
+          {user.currentUser ? (
+            user.currentUser.username
+          ) : (
+            <>
+              <Link to="/register">
+                <MenuItem>REGISTER</MenuItem>
+              </Link>
+              <Link to="/login">
+                <MenuItem>SIGN IN</MenuItem>
+              </Link>
+            </>
+          )}
+          <Link to="/cart">
             <MenuItem>
               <Badge badgeContent={quantity} color="primary">
                 <ShoppingCartOutlined />
@@ -72,7 +71,7 @@ const Left = styled.div`
 const Language = styled.span`
   font-size: 14px;
   cursor: pointer;
-  ${mobile({ display: "none" })} 
+  ${mobile({ display: "none" })}
 `;
 
 const SearchContainer = styled.div`

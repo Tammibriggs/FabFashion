@@ -1,73 +1,68 @@
-import { Add, Remove } from "@material-ui/icons";
+import { Add, Remove } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
-import StripeCheckout from 'react-stripe-checkout'
+import StripeCheckout from "react-stripe-checkout";
 import { useEffect, useState } from "react";
 import { publicRequest } from "../requestMethods";
-import { useHistory } from "react-router-dom";
 import { resetCart } from "../redux/cartRedux";
 import { useLocation } from "react-router";
+import { useNavigate } from "react-router-dom";
 
-const KEY = process.env.REACT_APP_STRIPE
+const KEY = process.env.REACT_APP_STRIPE;
 
 const Cart = () => {
-  const cart = useSelector(state=> state.cart)
-  const user = useSelector(state => state.user)
-  const token = user.currentUser?.accessToken
-  const [stripeToken, setStripeToken] = useState(null)
-  const history = useHistory()
-  const location = useLocation().pathname
-  const dispatch = useDispatch()
+  const cart = useSelector((state) => state.cart);
+  const user = useSelector((state) => state.user);
+  const token = user.currentUser?.accessToken;
+  const [stripeToken, setStripeToken] = useState(null);
+  const history = useNavigate();
+  const location = useLocation().pathname;
+  const dispatch = useDispatch();
 
   const onToken = (token) => {
-    setStripeToken(token)
-  }
+    setStripeToken(token);
+  };
 
   useEffect(() => {
-    if(!user.currentUser){
+    if (!user.currentUser) {
       history.push({
-        pathname: '/login',
+        pathname: "/login",
         state: {
-          next: location
-        }
-      })
+          next: location,
+        },
+      });
     }
-  })
-    
+  });
+
   useEffect(() => {
     const makeRequest = async () => {
-      try{
-        const res = await publicRequest.post('checkout/payment', {
-          tokenId: stripeToken.id,
-          amount: cart.total * 100
-        },
-        {
-          headers: {token:`Bearer ${token}`}
-        }
-        )
-        history.push('/success', {data:res.data})
-        dispatch(resetCart())
-      }catch(err){
-        alert(err)
+      try {
+        const res = await publicRequest.post(
+          "checkout/payment",
+          {
+            tokenId: stripeToken.id,
+            amount: cart.total * 100,
+          },
+          {
+            headers: { token: `Bearer ${token}` },
+          }
+        );
+        history.push("/success", { data: res.data });
+        dispatch(resetCart());
+      } catch (err) {
+        alert(err);
       }
+    };
+    if (stripeToken && cart.total >= 1) {
+      makeRequest();
+    } else if (user.currentUser && !cart.total >= 1) {
+      alert("Cart is empty");
     }
-    if(stripeToken && cart.total >= 1){
-      makeRequest() 
-    }else if (user.currentUser && !cart.total >= 1) {
-      alert('Cart is empty')
-    }
-  }, [stripeToken,
-      cart.total,
-      history, 
-      token, 
-      dispatch, 
-      user.currentUser
-    ]
-  )
+  }, [stripeToken, cart.total, history, token, dispatch, user.currentUser]);
 
   return (
     <Container>
@@ -81,38 +76,39 @@ const Cart = () => {
             <TopText>Shopping Bag(2)</TopText>
             <TopText>Your Wishlist (0)</TopText>
           </TopTexts>
-            <TopButton type="filled">CHECKOUT NOW</TopButton> 
+          <TopButton type="filled">CHECKOUT NOW</TopButton>
         </Top>
         <Bottom>
           <Info>
-
             {cart.products.map((product) => (
               <Product>
-              <ProductDetail>
-                <Image src={product.img} />
-                <Details>
-                  <ProductName>
-                    <b>Product:</b> {product.title}
-                  </ProductName>
-                  <ProductId>
-                    <b>ID:</b> {product._id}
-                  </ProductId>
-                  <ProductColor color={product.color} />
-                  <ProductSize>
-                    <b>Size:</b> {product.size}
-                  </ProductSize>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountContainer>
-                  <Add />
-                  <ProductAmount>{product.quantity}</ProductAmount>
-                  <Remove />
-                </ProductAmountContainer>
-                <ProductPrice>$ {product.price*product.quantity}</ProductPrice>
-              </PriceDetail>
-            </Product>
-          ))}
+                <ProductDetail>
+                  <Image src={product.img} />
+                  <Details>
+                    <ProductName>
+                      <b>Product:</b> {product.title}
+                    </ProductName>
+                    <ProductId>
+                      <b>ID:</b> {product._id}
+                    </ProductId>
+                    <ProductColor color={product.color} />
+                    <ProductSize>
+                      <b>Size:</b> {product.size}
+                    </ProductSize>
+                  </Details>
+                </ProductDetail>
+                <PriceDetail>
+                  <ProductAmountContainer>
+                    <Add />
+                    <ProductAmount>{product.quantity}</ProductAmount>
+                    <Remove />
+                  </ProductAmountContainer>
+                  <ProductPrice>
+                    $ {product.price * product.quantity}
+                  </ProductPrice>
+                </PriceDetail>
+              </Product>
+            ))}
 
             <Hr />
           </Info>
@@ -135,11 +131,11 @@ const Cart = () => {
               <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
             </SummaryItem>
             <StripeCheckout
-              name='Tammibriggs'
+              name="Tammibriggs"
               billingAddress
               shippingAddress
               description={`Your total is $${cart.total}`}
-              amount={cart.total*100}
+              amount={cart.total * 100}
               token={onToken}
               stripeKey={KEY}
             >
@@ -195,7 +191,6 @@ const Bottom = styled.div`
   display: flex;
   justify-content: space-between;
   ${mobile({ flexDirection: "column" })}
-
 `;
 
 const Info = styled.div`
